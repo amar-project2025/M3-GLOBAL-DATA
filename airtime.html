@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheap Airtime VTU</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      padding-top: 70px; /* Space for top nav */
+    }
+    
+        
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: purple;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .top-nav-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        a{
+            text-decoration: none;
+        }
+        .top-nav-icons {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .top-nav-icon {
+            font-size: 20px;
+        }
+    
+    .vtu-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+    
+    .balance {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    
+    .balance-label {
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+    
+    .balance-amount {
+      font-size: 28px;
+      font-weight: bold;
+      color: #27ae60;
+      margin-top: 5px;
+    }
+    
+    hr {
+      border: none;
+      border-top: 1px solid #ecf0f1;
+      margin: 20px 0;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .form-group select,
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border 0.3s;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #764ba2;
+    }
+    
+    .reset-pin {
+      text-align: right;
+      margin-bottom: 5px;
+    }
+    
+    .reset-pin a {
+      color: #3498db;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    
+    .purchase-btn {
+      background-color: purple;
+      color: white;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+    
+    .purchase-btn:hover {
+      background-color: purple;
+    }
+    
+    .dashed-line {
+      border: none;
+      border-top: 1px dashed #bdc3c7;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav">
+          <a href="homepage.html">
+          <div class="top-nav-icons">
+              <span class="top-nav-icon">BACK</span>
+          </div>
+      </a>
+      <div class="top-nav-title">Airtime VTU</div>
+      <div class="top-nav-title"></div>
+  </nav>
+  <div class="vtu-container">
+    <div class="header">
+      <h1>Available Balance</h1>
+    </div>
+    
+    <div class="balance">
+      <div class="balance-amount">₦1,600.20</div>
+    </div>
+    
+    <hr>
+    
+    <form id="vtuForm">
+      <div class="form-group">
+        <label for="network">- Choose -</label>
+        <select id="network" required>
+          <option value="" disabled selected>Select Network</option>
+          <option value="MTN">MTN</option>
+          <option value="Airtel">Airtel</option>
+          <option value="Glo">Glo</option>
+          <option value="9mobile">9mobile</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="mobile">- Mobile No. -</label>
+        <input type="tel" id="mobile" placeholder="Enter mobile number" required>
+      </div>
+      
+      
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" placeholder="Enter amount" required>
+      </div>
+      
+      
+      <div class="reset-pin">
+        <a href="resetPin.html">Forget Pin ? Reset Here</a>
+      </div>
+      
+      <div class="form-group">
+        <label for="pin">Security PIN</label>
+        <input type="password" id="pin" placeholder="Enter your PIN" required>
+      </div>
+      
+      <button type="submit" class="purchase-btn">Purchase Now</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('vtuForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const network = document.getElementById('network').value;
+      const mobile = document.getElementById('mobile').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+      const pin = document.getElementById('pin').value;
+      const balance = 1600.20; // Starting balance
+      
+      // Validate amount
+      if (amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
+      }
+      
+      if (amount > balance) {
+        alert('Insufficient balance');
+        return;
+      }
+      
+      if (pin.length !== 4) {
+        alert('PIN must be 4 digits');
+        return;
+      }
+      
+      // Simulate purchase
+      const newBalance = balance - amount;
+      console.log('Purchase details:', {
+        network,
+        mobile,
+        amount,
+        newBalance
+      });
+      
+      alert(`Airtime purchase successful!\n${amount}¥ sent to ${mobile} (${network})\nNew balance: ${newBalance.toFixed(2)}¥`);
+      
+      // Reset form
+      this.reset();
+    });
+  </script>
+</body>
+</html>

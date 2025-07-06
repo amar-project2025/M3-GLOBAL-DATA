@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bofiasub - Sign Up</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .signup-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 480px;
+      padding: 40px;
+    }
+    
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    
+    .subtitle {
+      color: #7f8c8d;
+      margin-bottom: 32px;
+      font-size: 15px;
+      text-align: center;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+    }
+    
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border 0.3s;
+    }
+    
+    .input-group input:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+    
+    .optional {
+      color: #95a5a6;
+      font-style: italic;
+      font-size: 12px;
+    }
+    
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      margin: 24px 0;
+    }
+    
+    .terms input {
+      margin-right: 10px;
+      margin-top: 3px;
+    }
+    
+    .terms label {
+      font-size: 14px;
+      color: #34495e;
+    }
+    
+    .terms a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    
+    .signup-btn {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-bottom: 20px;
+    }
+    
+    .signup-btn:hover {
+      background-color: #2980b9;
+    }
+    
+    .login-link {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+    
+    .login-link a {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .password-container {
+      position: relative;
+    }
+    
+    .show-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #7f8c8d;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <div class="logo">3 bofiasub</div>
+    <div class="subtitle">Enjoy - BOFIASUB<br>Provide your valid credentials and sign in.</div>
+    
+    <form id="signupForm" action="login.html">
+      <div class="input-group">
+        <label for="fullname">FULL NAME</label>
+        <input type="text" id="fullname" placeholder="Enter your full name" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="telephone">TELEPHONE</label>
+        <input type="tel" id="telephone" placeholder="Enter your mobile no." required>
+      </div>
+      
+      <div class="input-group">
+        <label for="email">EMAIL</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="username">USERNAME</label>
+        <input type="text" id="username" placeholder="Enter your username" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="referral">REFERRAL CODE <span class="optional">(Optional)</span></label>
+        <input type="text" id="referral" placeholder="Enter referral code if any">
+      </div>
+      
+      <div class="input-group">
+        <label for="password">PASSWORD</label>
+        <div class="password-container">
+          <input type="password" id="password" placeholder="Create a password" required>
+          <button type="button" class="show-password"><ion-icon name="eye-outline">1</ion-icon></button>
+        </div>
+      </div>
+      
+      <div class="terms">
+        <input type="checkbox" id="agreeTerms" required>
+        <label for="agreeTerms">I agree to the <a href="#">terms and conditions</a></label>
+      </div>
+      
+      <button type="submit" class="signup-btn">Sign Up</button>
+    </form>
+    
+    <div class="login-link">
+      Already a member? <a href="#">Sign In</a>
+    </div>
+  </div>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  
+  <script>
+    // Toggle password visibility
+    document.querySelector('.show-password').addEventListener('click', function() {
+      const passwordField = document.getElementById('password');
+      const button = this;
+      
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        button.textContent = <ion-icon name="eye-off-outline"></ion-icon>;
+      } else {
+        passwordField.type = 'password';
+        button.textContent = <ion-icon name="eye-outline"></ion-icon>;
+      }
+    });
+    
+  </script>
+</body>
+</html>

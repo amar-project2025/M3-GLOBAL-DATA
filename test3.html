@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPay-like Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            max-width: 414px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background-color: #fff;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .balance-section {
+            background-color: #fff;
+            padding: 20px 15px;
+            margin-bottom: 10px;
+        }
+        
+        .balance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .balance-title {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .transaction-history {
+            font-size: 14px;
+            color: #0070ba;
+            font-weight: 500;
+        }
+        
+        .balance-amount {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            letter-spacing: 4px;
+        }
+        
+        .balance-hidden {
+            background-color: #e0e0e0;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(0,0,0,0.5);
+            border-radius: 4px;
+            user-select: none;
+            letter-spacing: 8px;
+        }
+        
+        .hidden-balance-text {
+            color: #333;
+        }
+        
+        .toggle-balance {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #0070ba;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .add-money-btn {
+            background-color: #0070ba;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        
+        .transfer-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .transfer-option {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .interest-banner {
+            background-color: #f0f7ff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #0070ba;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .quick-action {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .promo-banner {
+            background-color: #fff8e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 80px;
+        }
+        
+        .promo-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .promo-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .promo-link {
+            color: #0070ba;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+            max-width: 414px;
+            margin: 0 auto;
+        }
+        
+        .nav-item {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .nav-item.active {
+            color: #0070ba;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Hi, AMMAR</h1>
+    </div>
+    
+    <div class="balance-section">
+        <div class="balance-header">
+            <div class="balance-title">Available Balance</div>
+            <div class="transaction-history">Transaction History ></div>
+        </div>
+        
+        <div class="balance-amount" id="balanceAmount">
+            <span id="balanceText">₦500,100.00</span>
+            <span id="hiddenBalance" class="hidden-balance-text" style="display: none;">****</span>
+            <button class="toggle-balance" id="toggleBalance">Hide</button>
+        </div>
+        
+        <button class="add-money-btn">+ Add Money</button>
+        
+        <div class="transfer-options">
+            <div class="transfer-option">To OPay</div>
+            <div class="transfer-option">To Bank</div>
+            <div class="transfer-option">Withdraw</div>
+        </div>
+        
+        <div class="interest-banner">Up to 6%</div>
+        
+        <div class="quick-actions">
+            <div class="quick-action">Airtime</div>
+            <div class="quick-action">Data</div>
+            <div class="quick-action">Betting</div>
+            <div class="quick-action">TV</div>
+            <div class="quick-action">Safebox</div>
+            <div class="quick-action">Loan</div>
+            <div class="quick-action">Invitation</div>
+            <div class="quick-action">More</div>
+        </div>
+    </div>
+    
+    <div class="promo-banner">
+        <div class="promo-title">Cash up for grabs!</div>
+        <div class="promo-text">Invite friends and earn up to $5,600 Bonus</div>
+        <div class="promo-link">Click for ></div>
+    </div>
+    
+    <div class="bottom-nav">
+        <div class="nav-item active">Home</div>
+        <div class="nav-item">Rewards</div>
+        <div class="nav-item">Finance</div>
+        <div class="nav-item">Cards</div>
+        <div class="nav-item">Me</div>
+    </div>
+
+    <script>
+        // Balance toggle functionality
+        const balanceText = document.getElementById('balanceText');
+        const hiddenBalance = document.getElementById('hiddenBalance');
+        const toggleBalance = document.getElementById('toggleBalance');
+        let balanceVisible = true;
+        
+        toggleBalance.addEventListener('click', function() {
+            balanceVisible = !balanceVisible;
+            
+            if (balanceVisible) {
+                balanceText.style.display = 'inline';
+                hiddenBalance.style.display = 'none';
+                toggleBalance.textContent = 'Hide';
+            } else {
+                balanceText.style.display = 'none';
+                hiddenBalance.style.display = 'inline';
+                toggleBalance.textContent = 'Show';
+            }
+        });
+        
+        // Other interaction examples
+        document.querySelectorAll('.transfer-option, .quick-action').forEach(item => {
+            item.addEventListener('click', function() {
+                alert(`You clicked: ${this.textContent}`);
+            });
+        });
+        
+        document.querySelector('.add-money-btn').addEventListener('click', function() {
+            alert('Add Money feature would open here');
+        });
+        
+        document.querySelector('.transaction-history').addEventListener('click', function() {
+            alert('Transaction History would open here');
+        });
+        
+        document.querySelector('.promo-link').addEventListener('click', function() {
+            alert('Promotion details would open here');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+// Your table data (simulate extraction from the table, or you can generate dynamically)
+const transactions = [
+  { ID: 134, DATE: "2025-06-15", PHONE: "09066059993", DATA_BUY: "2 GB", NETWORK: "MTN", DATA_TYPE: "SME", STATUS: "PAID", REF_ID: "684ec391adb3", PAYMENT: "Paid" },
+  { ID: 133, DATE: "2025-06-15", PHONE: "08123054570", DATA_BUY: "1 GB", NETWORK: "MTN", DATA_TYPE: "GIFTING", STATUS: "PAID", REF_ID: "684ebcad23a13", PAYMENT: "Paid" },
+  // ... add all your data here
+];
+
+// Select the container where rows will be displayed
+const ordersContainer = document.querySelector('.orders-record');
+const transactionModal = document.getElementById('transactionModal');
+const modalContent = transactionModal.querySelector('.transaction-details');
+const closeBtn = transactionModal.querySelector('.close-btn');
+
+// Function to render the table rows
+function displayOrders(data) {
+  ordersContainer.innerHTML = '';
+  data.forEach((transaction, index) => {
+    const row = document.createElement('div');
+    row.className = 'order-row';
+    row.style.display = 'flex'; // or style as needed
+    row.style.justifyContent = 'space-between';
+    row.style.padding = '10px';
+    row.style.borderBottom = '1px solid #ccc';
+    row.style.cursor = 'pointer';
+
+    row.innerHTML = `
+      <div style="flex:2;">
+        <strong>${transaction.DATA_BUY}</strong><br>
+        Ref: ${transaction.REF_ID.substring(0,12)}...
+      </div>
+      <div style="flex:1;">${transaction.DATE}</div>
+      <div style="flex:1;">${transaction.PHONE}</div>
+      <div style="flex:1;">${transaction.STATUS}</div>
+      <button class="print-btn" style="margin-left:10px;">Print</button>
+    `;
+
+    // Add click to open details modal
+    row.onclick = () => openTransactionModal(transaction);
+
+    // Attach print button event
+    row.querySelector('.print-btn').onclick = (e) => {
+      e.stopPropagation(); // prevent opening modal
+      printTransaction(transaction);
+    };
+
+    ordersContainer.appendChild(row);
+  });
+}
+
+// Function to open modal with details
+function openTransactionModal(transaction) {
+  modalContent.innerHTML = `
+    <h4>Transaction Details</h4>
+    <p><strong>Reference No:</strong> ${transaction.REF_ID}</p>
+    <p><strong>Order:</strong> ${transaction.DATA_BUY} on ${transaction.PHONE}</p>
+    <p><strong>Date:</strong> ${transaction.DATE}</p>
+    <p><strong>Network:</strong> ${transaction.NETWORK}</p>
+    <p><strong>Type:</strong> ${transaction.DATA_TYPE}</p>
+    <p><strong>Status:</strong> ${transaction.STATUS}</p>
+    <p><strong>Amount:</strong> ${transaction.PAYMENT}</p>
+    <div style="margin-top:20px;">
+      <button id="printBtn">Print</button>
+      <button id="reportBtn">Report Issue</button>
+    </div>
+  `;
+
+  // Add event handlers for buttons
+  document.getElementById('printBtn').onclick = () => {
+    printTransaction(transaction);
+  };
+
+  document.getElementById('reportBtn').onclick = () => {
+    const subject = encodeURIComponent(`Issue with transaction ${transaction.REF_ID}`);
+    const body = encodeURIComponent(
+      `I'm reporting an issue with this transaction:\n\nReference No: ${transaction.REF_ID}\nAmount: ${transaction.PAYMENT}\nDate: ${transaction.DATE}\n\nIssue description:`
+    );
+    window.location.href = `mailto:support@bofiasub.com?subject=${subject}&body=${body}`;
+  };
+
+  // Show modal
+  transactionModal.style.display = 'flex';
+
+  // Close button
+  modalContent.querySelector('.close-btn').onclick = () => {
+    transactionModal.style.display = 'none';
+  };
+}
+
+// Function to print transaction
+function printTransaction(transaction) {
+  const printWindow = window.open('', '', 'width=600,height=400');
+  printWindow.document.write(`
+    <html><head>
+      <title>Transaction ${transaction.REF_ID}</title>
+    </head><body>
+      <h2>Transaction Details</h2>
+      <p><strong>Reference No:</strong> ${transaction.REF_ID}</p>
+      <p><strong>Order:</strong> ${transaction.DATA_BUY} on ${transaction.PHONE}</p>
+      <p><strong>Date:</strong> ${transaction.DATE}</p>
+      <p><strong>Network:</strong> ${transaction.NETWORK}</p>
+      <p><strong>Type:</strong> ${transaction.DATA_TYPE}</p>
+      <p><strong>Status:</strong> ${transaction.STATUS}</p>
+      <p><strong>Amount:</strong> ${transaction.PAYMENT}</p>
+      <button onclick="window.print()">Print</button>
+    </body></html>
+  `);
+  printWindow.document.close();
+}
+
+// Initialize display
+displayOrders(transactions);
+
+// Close modal when clicking outside or on close button
+window.onclick = (e) => {
+  if (e.target == transactionModal) {
+    transactionModal.style.display = 'none';
+  }
+};

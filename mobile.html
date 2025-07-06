@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Data Bundle</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 70px; /* Space for top nav */
+    }
+        
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: purple;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .top-nav-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        a{
+            text-decoration: none;
+        }
+        .top-nav-icons {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .top-nav-icon {
+            font-size: 20px;
+        }
+        
+    .container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .balance p {
+      font-size: 28px;
+      font-weight: bold;
+      color: #27ae60;
+      margin-top: 5px;
+    }
+    .network, .mobile, .pin {
+      margin: 15px 0;
+      text-align: left;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .network .mobile .pin label {
+      display: block;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    input:focus,select:focus {
+      outline: none;
+      border-color: #764ba2;
+    }
+    .reset {
+      text-align: right;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    .reset a {
+      color: purple;
+      text-decoration: none;
+    }
+    #buyNow {
+      background: purple;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    #buyNow:hover {
+      background: purple;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #ecf0f1;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav">
+          <a href="homepage.html">
+          <div class="top-nav-icons">
+              <span class="top-nav-icon">BACK</span>
+          </div>
+      </a>
+      <div class="top-nav-title">Buy Data Bundle</div>
+      <div class="top-nav-title"></div>
+  </nav>
+  <div class="container">
+    
+    <div class="balance">
+      <h2>Available Balance</h2>
+      <p id="balance">₦1,600.20</p>
+    </div>
+    <hr>
+    <form action="" method="get">
+    <div class="network">
+      <label for="network">Choose Network</label>
+      <select id="network">
+        <option value="">- Choose -</option>
+        <option value="MTN">MTN</option>
+        <option value="Airtel">Airtel</option>
+        <option value="Glo">Glo</option>
+        <option value="9mobile">9mobile</option>
+      </select>
+    </div>
+
+    <div class="network">
+      <label for="plan">Select Plan</label>
+      <select id="plan" >
+        <option value="" disabled selected>- Choose Plan -</option>
+        <option value="1">1GB ₦500</option>
+        <option value="2">2GB ₦1000</option>
+        <option value="3">3GB ₦1500</option>
+        <option value="4">4GB ₦2000</option>
+      </select>
+    </div>
+
+    <div class="mobile">
+      <label for="mobile">Mobile No.</label>
+      <input type="tel" id="mobile" placeholder="Enter mobile number">
+    </div>
+
+    <div class="pin">
+      <label for="pin">Security PIN</label>
+      <input type="password" id="pin" placeholder="Enter PIN">
+      <p class="reset"><a href="resetPin.html">Forget PIN? Reset Here</a></p>
+    </div>
+    <input type="submit" id="buyNow" value="BUY NOW">
+  </form>
+  </div>
+
+  <script>
+    document.getElementById('buyNow').addEventListener('click', function() {
+      const network = document.getElementById('network').value;
+      const plan = document.getElementById('plan').value;
+      const mobile = document.getElementById('mobile').value;
+      const pin = document.getElementById('pin').value;
+      const balance = parseFloat(document.getElementById('balance').textContent);
+      // Validate inputs
+      if (!network || !mobile || !pin) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      // Simulate purchase (deduct 5.0 from balance)
+      const newBalance = balance - 5.0;
+      if (newBalance < 0) {
+        alert("Insufficient balance!");
+        return;
+      }
+
+      // Update balance and show success
+      document.getElementById('balance').textContent = newBalance.toFixed(2);
+      alert(`Data bundle purchased for ${mobile} (${network}) ${plan}GB. New balance: ${newBalance.toFixed(2)}`);
+      
+    });
+  </script>
+</body>
+</html>

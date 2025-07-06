@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            padding-top: 70px; /* Space for top nav */
+        }
+        
+        .password-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+        }
+        
+        .page-title {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .balance-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .balance-label {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .balance-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: purple;
+        }
+        
+        .password-toggle {
+            position: relative;
+        }
+        
+        .toggle-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 25px 0;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+        }
+        
+        .submit-btn:hover {
+            background-color: purple;
+        }
+        
+        @media (max-width: 480px) {
+            .password-container {
+                padding: 20px;
+            }
+            
+            .page-title {
+                font-size: 20px;
+            }
+            
+            .balance-amount {
+                font-size: 24px;
+            }
+        } /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: purple;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .top-nav-title { 
+            font-size: 18px;
+            font-weight: 600;
+        }
+        a{
+            text-decoration: none;
+        }
+        .top-nav-icons {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .top-nav-icon {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+            <a href="profile.html">
+            <div class="top-nav-icons">
+                <span class="top-nav-icon">BACK</span>
+            </div>
+        </a>
+        <div class="top-nav-title">Transaction PIN</div>
+        <div class="top-nav-title"></div>
+    </nav>
+    <div class="password-container">
+        <h1 class="page-title">Change PIN</h1>
+        
+        <div class="form-group">
+            <label for="old-password">Old PIN</label>
+            <div class="password-toggle">
+                <input type="password" id="old-password" class="form-control" placeholder="Enter old PIN">
+                <span class="toggle-icon" onclick="togglePassword('old-password')"><ion-icon name="eye-outline"></ion-icon></span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="new-password">New PIN</label>
+            <div class="password-toggle">
+                <input type="password" id="new-password" class="form-control" placeholder="Enter new PIN">
+                <span class="toggle-icon" onclick="togglePassword('new-password')"><ion-icon name="eye-outline"></ion-icon></span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="confirm-password">Confirm PIN</label>
+            <div class="password-toggle">
+                <input type="password" id="confirm-password" class="form-control" placeholder="Confirm new PIN">
+                <span class="toggle-icon" onclick="togglePassword('confirm-password')"><ion-icon name="eye-outline"></ion-icon></span>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <button class="submit-btn" onclick="changePassword()">Submit</button>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (field.type === 'password') {
+                field.type = 'text';
+            } else {
+                field.type = 'password';
+            }
+        }
+        
+        function changePassword() {
+            const oldPassword = document.getElementById('old-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Basic validation
+            if (!oldPassword || !newPassword || !confirmPassword) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                alert('New PIN do not match');
+                return;
+            }
+            
+            if (newPassword.length < 5) {
+                alert('PIN must be at least 5 numbers');
+                return;
+            }
+            
+            // In a real application, you would send this to your server
+            console.log('PIN change requested');
+            console.log('Old PIN:', oldPassword);
+            console.log('New PIN:', newPassword);
+            
+            alert('PIN changed successfully!');
+            
+            // Reset form
+            document.getElementById('old-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cable TV Subscription</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+        body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 70px; /* Space for top nav */
+        }
+        
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: purple;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .top-nav-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        a{
+            text-decoration: none;
+        }
+        .top-nav-icons {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .top-nav-icon {
+            font-size: 20px;
+        }
+        
+    .container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        
+        .balance p {
+        font-size: 28px;
+        font-weight: bold;
+        color: #27ae60;
+        margin-top: 5px;
+        }
+        
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus,select:focus {
+        outline: none;
+        border-color: #764ba2;
+        }
+        
+        .forget-pin {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+        
+        .forget-pin a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .verify-btn {
+            background-color: purple;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .verify-btn:hover {
+            background-color: purple;
+        }
+        
+        .iuc-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+            <a href="homepage.html">
+            <div class="top-nav-icons">
+                <span class="top-nav-icon">BACK</span>
+            </div>
+        </a>
+        <div class="top-nav-title">Cable TV Subscription</div>
+        <div class="top-nav-title"></div>
+    </nav>
+    <div class="container">
+            <div class="balance">
+                <h2>Available Balance</h2>
+                <p id="balance">₦1,600.20</p>
+              </div>
+        <div class="divider"></div>
+        
+        
+        <div class="form-group">
+            <select id="choose-option">
+                <option value="" disabled selected>- Choose -</option>
+                <option value="dstv">DStv</option>
+                <option value="gotv">GOtv</option>
+                <option value="startimes">StarTimes</option>
+                <option value="showmax">Showmax</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <select id="plan-option">
+                <option value="" disabled selected>- Select Plan -</option>
+                <option value="premium">Premium</option>
+                <option value="compact">Compact</option>
+                <option value="confam">Confam</option>
+                <option value="yangapakage">Yanga Package</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <span class="iuc-label">IUC/Smart No.</span>
+            <input type="text" id="iuc-number" placeholder="Enter IUC/Smart Number">
+        </div>
+        
+        <div class="forget-pin">
+            <a href="resetPin.html" id="reset-pin">Forget Pin ? Reset Here</a>
+        </div>
+        
+        <div class="form-group">
+            <input type="password" id="security-pin" placeholder="Security PIN">
+        </div>
+        
+        <button class="verify-btn" id="verify-btn">Verify <strong>IUC/Smart No</strong></button>
+        
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            
+            // Verify button functionality
+            document.getElementById('verify-btn').addEventListener('click', function() {
+                const iucNumber = document.getElementById('iuc-number').value;
+                const pin = document.getElementById('security-pin').value;
+                
+                if (!iucNumber || !pin) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Here you would typically make an API call to verify the details
+                // For this demo, we'll just show a success message
+                const provider = document.getElementById('choose-option').value || 'your cable provider';
+                const plan = document.getElementById('plan-option').value || 'selected plan';
+                
+                alert(`Verification successful!\n\nProvider: ${provider}\nPlan: ${plan}\nIUC: ${iucNumber}\n\nProceeding to payment confirmation...`);
+                
+                // In a real application, you would redirect to a payment confirmation page
+                // window.location.href = '/payment-confirmation';
+            });
+            
+            // Update plan options based on provider selection
+            document.getElementById('choose-option').addEventListener('change', function() {
+                const provider = this.value;
+                const planSelect = document.getElementById('plan-option');
+                
+                // Clear existing options
+                planSelect.innerHTML = '<option value="" disabled selected>- Select Plan -</option>';
+                
+                // Add options based on provider
+                if (provider === 'dstv') {
+                    addPlanOption(planSelect, 'premium', 'Premium');
+                    addPlanOption(planSelect, 'compact', 'Compact');
+                    addPlanOption(planSelect, 'confam', 'Confam');
+                    addPlanOption(planSelect, 'yangapakage', 'Yanga Package');
+                } else if (provider === 'gotv') {
+                    addPlanOption(planSelect, 'max', 'GOtv Max');
+                    addPlanOption(planSelect, 'jolli', 'GOtv Jolli');
+                    addPlanOption(planSelect, 'jinja', 'GOtv Jinja');
+                    addPlanOption(planSelect, 'lite', 'GOtv Lite');
+                } else if (provider === 'startimes') {
+                    addPlanOption(planSelect, 'nova', 'Nova');
+                    addPlanOption(planSelect, 'basic', 'Basic');
+                    addPlanOption(planSelect, 'smart', 'Smart');
+                    addPlanOption(planSelect, 'classic', 'Classic');
+                } else if (provider === 'showmax') {
+                    addPlanOption(planSelect, 'entertainment', 'Entertainment');
+                    addPlanOption(planSelect, 'premier-league', 'Premier League');
+                }
+            });
+            
+            function addPlanOption(selectElement, value, text) {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = text;
+                selectElement.appendChild(option);
+            }
+        });
+    </script>
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
