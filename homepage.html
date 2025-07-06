@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AMAR-SUB Mobile</title>
+    <style>
+        :root {
+    --primary-color: purple;
+    --secondary-color: #f8f9fa;
+    --text-color: #333;
+    --light-text: #666;
+    --border-color: #e0e0e0;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --site-color: purple;
+}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.5;
+            padding: 16px;
+            padding-bottom: 80px; /* Space for bottom nav f5f7fa */
+            padding-top: 70px; /* Space for top nav 270ffc*/
+        }
+        
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--site-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .top-nav-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .top-nav-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .top-nav-icon {
+            font-size: 20px;
+        }
+        .user{
+            position: relative;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .user img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            z-index: 1000;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .nav-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            color: #000;
+        }
+        .nav-icon-whatsapp {
+            font-size: 22px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            color: #000;
+        }
+        
+        .nav-icon ion-icon{
+            color: rgb(10 10 10);
+        }
+        .nav-icon-whatsapp ion-icon{
+            color: #28a745;
+        }
+        .nav-label {
+            font-size: 12px;
+        }
+        
+        .nav-item.active {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        /* Content Styles */
+        .balance-section {
+            background-color: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .balance-title {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .balance-amount {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        .balance-grid{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        
+        .balance-item {
+            text-align: center;
+        }
+        a{
+            text-decoration: none;
+        }
+        .balance-icon{
+            font-size: 22px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            color: #666;
+        }
+        .balance-icon ion-icon{
+            color: rgb(10 10 10);
+        }
+        .balance-item p {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .balance-item .buy-button {
+            font-size: 12px;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .bonus-section {
+            background-color: var(--site-color);
+            color: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .bonus-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        
+        .bonus-description {
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        
+        .bonus-amount {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .bonus-progress {
+            height: 6px;
+            background-color: #eee;
+            border-radius: 3px;
+            margin-bottom: 8px;
+        }
+        
+        .bonus-progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #4CAF50;
+            border-radius: 3px;
+        }
+        
+        .services-section {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .services-title {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: #666;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        .service-item {
+            text-align: center;
+        }
+        
+        .service-item h4 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .service-item p {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        .service-item button{
+            border-radius: 5PX;
+            padding: 3px;
+            background: var(--site-color);
+            border-color: var(--site-color);
+            font-size: 10px;
+            color: #FFF;
+            cursor: pointer;
+        } 
+        
+        .transactions-section {
+            background-color: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .transactions-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #666;
+        }
+        
+        .transactions-empty {
+            font-size: 14px;
+            color: #999;
+            padding: 20px 0;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+  
+.recent-transactions h2 {
+    margin-bottom: 1rem;
+    color: var(--site-color);
+}
+
+.transactions-list {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.transaction-item {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-item:hover {
+    background-color: #f9f9f9;
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-info h3 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.transaction-info p {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+.transaction-amount {
+    font-weight: bold;
+}
+
+.transaction-success {
+    color: var(--success-color);
+}
+
+.transaction-failed {
+    color: var(--danger-color);
+}
+
+.transaction-date {
+    color: var(--light-text);
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--light-text);
+}
+
+.transaction-details h4 {
+    margin: 1rem 0 0.5rem;
+    color: var(--primary-color);
+}
+
+.transaction-details p {
+    margin-bottom: 0.5rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-label {
+    color: var(--light-text);
+}
+
+.detail-value {
+    font-weight: 500;
+}
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.print-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.print-btn:hover {
+    background-color: #3a5bef;
+}
+
+.report-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.report-btn:hover {
+    background-color: #c82333;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .modal-content, .modal-content * {
+        visibility: visible;
+    }
+    .modal-content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+        border: none;
+    }
+    .modal-actions {
+        display: none;
+    }
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.cancel-btn {
+    background-color: var(--light-text);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+    
+       .services {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .service-item {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .service-name {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .buy-now {
+            font-size: 10px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .service-item button{
+            width: 100%;
+            border-radius: 5PX;
+            padding: 3px;
+            background: purple;
+            font-size: 10px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="top-nav-title">AMAR-SUB</div>
+        <div class="top-nav-icons">
+            <span class="top-nav-icon"><ion-icon name="notifications-outline"></ion-icon></span>
+            <span class="top-nav-icon">
+                <!--  user  -->
+                <div class="user">
+                    <img src="user.jpg" >
+                </div></span>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="balance-section">
+        <h2 class="balance-title">Balance</h2>
+        <div class="balance-amount">₦101,495.00  <span class="balance-icon"><ion-icon name="eye-off-outline"></ion-icon></span></div>
+        
+        <hr>
+        <div class="balance-grid">
+            <div class="balance-item">
+                <span class="balance-icon"><a href="deposit.html"><ion-icon name="add-outline"></ion-icon></a></span>
+                <p class="buy-button">Deposit</p>
+            </div>
+            <div class="balance-item">
+                <span class="balance-icon"><a href="w2w.html"><ion-icon name="arrow-forward-outline"></ion-icon></a></span>
+                <p class="buy-button">W 2 W</p>
+            </div>
+            <div class="balance-item">
+                <span class="balance-icon"><a href="business.html"><ion-icon name="bar-chart-outline"></ion-icon></a></span>
+                <p class="buy-button">Business</p>
+            </div>
+            <div class="balance-item">
+                <span class="balance-icon"><a href="order.html"><ion-icon name="receipt-outline"></ion-icon></a></span>
+                <p class="buy-button">Order</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bonus-section">
+        <h3 class="bonus-title">Daily Deposit Bonus</h3>
+        <p class="bonus-description">Get 0.55% on deposit. Reset by 12:00AM</p>
+        <div class="bonus-progress">
+            <div class="bonus-progress-bar"></div>
+        </div>
+    </div>
+
+
+    
+    <div class="services">
+        <div class="service-item">
+            <div class="service-icon"><ion-icon name="call-outline"></ion-icon></div>
+            <div class="service-name">Airtime</div>
+            <div class="buy-now"><a href="airtime.html"><button class="buy-button">BUY NOW</button></a></div>
+        </div>
+        <div class="service-item">
+            <div class="service-icon"><ion-icon name="wifi-outline"></ion-icon></div>
+            <div class="service-name">Buy Data</div>
+            <div class="buy-now"><a href="mobile.html"><button class="buy-button">BUY NOW</button></a></div>
+        </div>
+        <div class="service-item">
+            <div class="service-icon"><ion-icon name="tv-outline"></ion-icon></div>
+            <div class="service-name">CableTv</div>
+            <div class="buy-now"><a href="cable.html"><button class="buy-button">BUY NOW</button></a></div>
+        </div>
+        <div class="service-item">
+            <div class="service-icon"><ion-icon name="bulb-outline"></ion-icon></div>
+            <div class="service-name">Pay Bills</div>
+            <div class="buy-now"><a href="bill.html"><button class="buy-button">BUY NOW</button></a></div>
+        </div>
+    </div>
+
+
+
+
+    
+    <!--div class="transactions-section">
+        <h3 class="transactions-title">Transactions</h3>
+        <div class="transactions-empty">
+            No Transaction Found
+        </div>
+    </div-->
+    
+    <main>
+        <section id="searchBtn"></section>
+
+        <section class="recent-transactions">
+            <h2>Recent Transactions</h2>
+            <div class="transactions-list">
+                <!-- Transactions will be loaded here dynamically -->
+            </div>
+        </section>
+    </main>
+    
+    <div class="modal" id="transactionModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Transaction Details</h3>
+            <div class="transaction-details">
+                <!-- Details will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <div class="nav-item active">
+            <span class="nav-icon"><a href="homepage.html"><ion-icon name="home-outline"></ion-icon></a></span>
+            <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon"><a href="transaction.html"><ion-icon name="timer-outline"></ion-icon></a></span>
+            <span class="nav-label">Transaction</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon-whatsapp"><a href="https://wa.me/2348146298981"><ion-icon name="logo-whatsapp"></ion-icon></a></span>
+            <span class="nav-label">Chat Us</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon"><a href="profile.html"><ion-icon name="settings-outline"></ion-icon></a></span>
+            <span class="nav-label">Settings</span>
+        </div>
+    </nav>
+
+    
+    <script src="transaction_script.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script>
+    function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (field.type === 'password') {
+                field.type = 'text';
+            } else {
+                field.type = 'password';
+            }
+        }
+</script>
+</body>
+</html>
